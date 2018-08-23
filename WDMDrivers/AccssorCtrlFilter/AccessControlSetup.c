@@ -10,18 +10,16 @@ AccessControlInstanceSetup(
 ) {
 	UNREFERENCED_PARAMETER(FltObjects);
 	UNREFERENCED_PARAMETER(Flags);
-	UNREFERENCED_PARAMETER(VolumeFilesystemType);
 	UNREFERENCED_PARAMETER(VolumeDeviceType);
 
 	PAGED_CODE();
 
-	// This is to exclude certain filsystem
-	// if (FILE_DEVICE_DISK_FILE_SYSTEM != VolumeDeviceType) {
-	//	DbgPrint("Filter: Not attaching to the Volume");
-	//	return STATUS_FLT_DO_NOT_ATTACH;
-	//}
+	if (FLT_FSTYPE_MUP == VolumeFilesystemType ) {
+		DbgPrint("Filter: Not attaching to the Volume\n");
+		return STATUS_FLT_DO_NOT_ATTACH;
+	}
 
-	DbgPrint("Filter: Attaching to volume");
+	DbgPrint("Filter: Attaching to volume\n");
 	return STATUS_SUCCESS;
 }
 
@@ -31,7 +29,7 @@ AccessControlUnload(
 ) {
 	UNREFERENCED_PARAMETER(Flags);
 
-	DbgPrint("Filter: UnRegistering the driver");
+	DbgPrint("Filter: UnRegistering the driver\n");
 
 	// Cleaning up the global handles
 	// FltCloseCommunicationPort(controllerData.ServerPort);
