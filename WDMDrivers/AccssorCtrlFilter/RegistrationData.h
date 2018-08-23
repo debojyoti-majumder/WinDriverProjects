@@ -7,13 +7,6 @@
 
 #define USERCOMM_PORT_NAME L"\\AccessControlPort"
 
-typedef struct _ACCESSCONTROLER_DATA {
-	PDRIVER_OBJECT	DriverObject;
-	PFLT_PORT		ServerPort;
-	PFLT_PORT		ClientPort;
-	PFLT_FILTER		Filter;
-}ACCESSCONTROLER_DATA, *PACCESSCONTROLER_DATA;
-
 CONST FLT_OPERATION_REGISTRATION Callbacks[] = {
 	{ IRP_MJ_CREATE,
 	0,
@@ -44,5 +37,3 @@ CONST FLT_REGISTRATION FilterRegistration = {
 	NULL,                               //  GenerateDestinationFileName
 	NULL                                //  NormalizeNameComponent
 };
-
-ACCESSCONTROLER_DATA controllerData;

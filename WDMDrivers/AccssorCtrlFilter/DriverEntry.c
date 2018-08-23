@@ -1,6 +1,7 @@
 #include <fltKernel.h>
 
 #include "RegistrationData.h"
+#include "GlobalData.h"
 
 DRIVER_INITIALIZE DriverEntry;
 
@@ -14,8 +15,20 @@ DriverEntry(
 	IN PDRIVER_OBJECT DriverObject,
 	IN PUNICODE_STRING RegistryPath
 ) {
-	UNREFERENCED_PARAMETER(DriverObject);
 	UNREFERENCED_PARAMETER(RegistryPath);
 
-	return STATUS_SUCCESS;
+	NTSTATUS status = STATUS_SUCCESS;
+	controllerData.Filter = NULL;
+
+	status = FltRegisterFilter(	DriverObject,				// The driver object
+								&FilterRegistration,		// IRP_MJ Callbacks
+								&controllerData.Filter);	// The handle for this filter driver
+
+	if ( !NT_SUCCESS(status) || controllerData.Filter == NULL ) {
+		DbgPrint("Filter: Failed to register filter driver");
+	}
+
+	DbgPrint("Filter: Driver Entry done");
+
+	return status;
 }

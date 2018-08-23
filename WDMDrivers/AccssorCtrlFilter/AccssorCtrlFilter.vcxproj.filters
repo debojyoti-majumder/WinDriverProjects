@@ -44,5 +44,8 @@
     <ClInclude Include="AccessControlSetup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GlobalData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

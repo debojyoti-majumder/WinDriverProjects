@@ -134,6 +134,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Link>
+      <AdditionalDependencies>fltmgr.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <Inf Include="AccssorCtrlFilter.inf" />
   </ItemGroup>
@@ -148,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="AccessControlCreate.h" />
     <ClInclude Include="AccessControlSetup.h" />
+    <ClInclude Include="GlobalData.h" />
     <ClInclude Include="RegistrationData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

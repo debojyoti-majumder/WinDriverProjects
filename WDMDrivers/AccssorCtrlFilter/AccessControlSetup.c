@@ -1,4 +1,5 @@
 #include "AccessControlSetup.h"
+#include "GlobalData.h"
 
 NTSTATUS
 AccessControlInstanceSetup(
@@ -15,10 +16,11 @@ AccessControlInstanceSetup(
 
 	// This is to exclude certain filsystem
 	if (FILE_DEVICE_DISK_FILE_SYSTEM != VolumeDeviceType) {
-		DbgPrint("Not attaching to the Volume");
+		DbgPrint("Filter: Not attaching to the Volume");
 		return STATUS_FLT_DO_NOT_ATTACH;
 	}
 
+	DbgPrint("Filter: Attaching to volume");
 	return STATUS_SUCCESS;
 }
 
@@ -32,7 +34,7 @@ AccessControlUnload(
 
 	// Cleaning up the global handles
 	// FltCloseCommunicationPort(controllerData.ServerPort);
-	// FltUnregisterFilter(controllerData.Filter);
+	FltUnregisterFilter(controllerData.Filter);
 
 	return STATUS_SUCCESS;
 }
