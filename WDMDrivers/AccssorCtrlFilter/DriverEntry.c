@@ -20,6 +20,7 @@ DriverEntry(
 	NTSTATUS status = STATUS_SUCCESS;
 	controllerData.Filter = NULL;
 
+	// Registering the filter driver
 	status = FltRegisterFilter(	DriverObject,				// The driver object
 								&FilterRegistration,		// IRP_MJ Callbacks
 								&controllerData.Filter);	// The handle for this filter driver
@@ -27,8 +28,17 @@ DriverEntry(
 	if ( !NT_SUCCESS(status) || controllerData.Filter == NULL ) {
 		DbgPrint("Filter: Failed to register filter driver");
 	}
+	DbgPrint("Filter: Starting the filtering");
+
+	// Starting the filtering process
+	// TODO: Make regsitry option if to start on connect or not
+	status = FltStartFiltering(controllerData.Filter);
+	if (!NT_SUCCESS(status)) {
+		DbgPrint("Filter: Can not start filtering");
+		FltUnregisterFilter(controllerData.Filter);
+	}
 
 	DbgPrint("Filter: Driver Entry done");
-
+	
 	return status;
 }
