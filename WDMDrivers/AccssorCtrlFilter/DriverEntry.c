@@ -26,19 +26,19 @@ DriverEntry(
 								&controllerData.Filter);	// The handle for this filter driver
 
 	if ( !NT_SUCCESS(status) || controllerData.Filter == NULL ) {
-		DbgPrint("Filter: Failed to register filter driver");
+		DbgPrint("Filter: Failed to register filter driver\n");
 	}
-	DbgPrint("Filter: Starting the filtering");
+	DbgPrint("Filter: Starting the filtering\n");
 
 	// Starting the filtering process
 	// TODO: Make regsitry option if to start on connect or not
 	status = FltStartFiltering(controllerData.Filter);
 	if (!NT_SUCCESS(status)) {
-		DbgPrint("Filter: Can not start filtering");
+		DbgPrint("Filter: Can not start filtering\n");
 		FltUnregisterFilter(controllerData.Filter);
 	}
 
-	DbgPrint("Filter: Driver Entry done");
+	DbgPrint("Filter: Driver Entry done\n");
 	
 	return status;
 }

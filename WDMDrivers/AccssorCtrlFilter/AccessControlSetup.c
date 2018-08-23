@@ -8,14 +8,23 @@ AccessControlInstanceSetup(
 	IN DEVICE_TYPE					VolumeDeviceType,
 	IN FLT_FILESYSTEM_TYPE			VolumeFilesystemType
 ) {
-	UNREFERENCED_PARAMETER(FltObjects);
 	UNREFERENCED_PARAMETER(Flags);
 	UNREFERENCED_PARAMETER(VolumeDeviceType);
 
 	PAGED_CODE();
+	NTSTATUS status;
+	BOOLEAN isSnapshopVolume = FALSE;
 
+	// Do not attach to MUP also
 	if (FLT_FSTYPE_MUP == VolumeFilesystemType ) {
 		DbgPrint("Filter: Not attaching to the Volume\n");
+		return STATUS_FLT_DO_NOT_ATTACH;
+	}
+
+	// Do not attach to snapshot volume
+	status = FltIsVolumeSnapshot(FltObjects->Volume, &isSnapshopVolume);
+	if (NT_SUCCESS(status) && isSnapshopVolume) {
+		DbgPrint("Filter: Not attaching to snapshot volume\n");
 		return STATUS_FLT_DO_NOT_ATTACH;
 	}
 
