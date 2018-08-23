@@ -27,9 +27,21 @@
     <ClCompile Include="DriverEntry.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AccessControlSetup.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AccessControlCreate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RegistrationData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AccessControlCreate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AccessControlSetup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

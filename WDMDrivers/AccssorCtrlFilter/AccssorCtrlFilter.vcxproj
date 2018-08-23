@@ -141,9 +141,13 @@
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AccessControlCreate.c" />
+    <ClCompile Include="AccessControlSetup.c" />
     <ClCompile Include="DriverEntry.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccessControlCreate.h" />
+    <ClInclude Include="AccessControlSetup.h" />
     <ClInclude Include="RegistrationData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
