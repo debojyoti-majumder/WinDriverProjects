@@ -4,8 +4,7 @@
 
 #include "AccessControlSetup.h"
 #include "AccessControlCreate.h"
-
-#define USERCOMM_PORT_NAME L"\\AccessControlPort"
+#include "FilterContexts.h"
 
 CONST FLT_OPERATION_REGISTRATION Callbacks[] = {
 	{ IRP_MJ_CREATE,
@@ -16,6 +15,15 @@ CONST FLT_OPERATION_REGISTRATION Callbacks[] = {
 	{ IRP_MJ_OPERATION_END }
 };
 
+const FLT_CONTEXT_REGISTRATION ContextRegistration[] = {
+	{ FLT_INSTANCE_CONTEXT,
+	0,
+	FilterContextCleanup,
+	CTX_INSTANCE_CONTEXT_SIZE,
+	CTX_INSTANCE_CONTEXT_TAG },
+
+	{ FLT_CONTEXT_END }
+};
 
 CONST FLT_REGISTRATION FilterRegistration = {
 
@@ -23,7 +31,7 @@ CONST FLT_REGISTRATION FilterRegistration = {
 	FLT_REGISTRATION_VERSION,           //  Version
 	0,                                  //  Flags
 
-	NULL,                               //  Context
+	ContextRegistration,                //  Context
 	Callbacks,                          //  Operation callbacks
 
 	AccessControlUnload,				//  MiniFilterUnload

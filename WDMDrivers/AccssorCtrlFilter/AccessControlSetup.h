@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fltKernel.h>
+#include "FilterContexts.h"
 
 NTSTATUS
 AccessControlInstanceSetup(
@@ -15,6 +16,11 @@ AccessControlUnload(
 	IN FLT_FILTER_UNLOAD_FLAGS Flags
 );
 
+static NTSTATUS PopulateInstanceContext(
+	PCTX_INSTANCE_CONTEXT insatnceContext
+);
+
 #ifdef ALLOC_PRAGMA
 	#pragma alloc_text(PAGE, AccessControlInstanceSetup)
+	#pragma alloc_text(PAGE, PopulateInstanceContext)
 #endif

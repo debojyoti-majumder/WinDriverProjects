@@ -1,5 +1,17 @@
 #include "AccessControlSetup.h"
 #include "GlobalData.h"
+#include "FilterContexts.h"
+
+NTSTATUS PopulateInstanceContext(
+	PCTX_INSTANCE_CONTEXT insatnceContext
+) {
+	NTSTATUS status = STATUS_SUCCESS;
+
+	UNREFERENCED_PARAMETER(insatnceContext);
+	PAGED_CODE();
+
+	return status;
+}
 
 NTSTATUS
 AccessControlInstanceSetup(
@@ -12,8 +24,9 @@ AccessControlInstanceSetup(
 	UNREFERENCED_PARAMETER(VolumeDeviceType);
 
 	PAGED_CODE();
-	NTSTATUS status;
+	NTSTATUS status = STATUS_SUCCESS;
 	BOOLEAN isSnapshopVolume = FALSE;
+	PCTX_INSTANCE_CONTEXT instanceContext = NULL;
 
 	// Do not attach to MUP also
 	if (FLT_FSTYPE_MUP == VolumeFilesystemType ) {
@@ -28,8 +41,16 @@ AccessControlInstanceSetup(
 		return STATUS_FLT_DO_NOT_ATTACH;
 	}
 
+	// Allocating and getting the insatnce context
+	status = FltAllocateContext(FltObjects->Filter, FLT_INSTANCE_CONTEXT, 
+				CTX_INSTANCE_CONTEXT_SIZE, NonPagedPool, &instanceContext);
+
+	if (NT_SUCCESS(status)) {
+		return PopulateInstanceContext(instanceContext);
+	}
+
 	DbgPrint("Filter: Attaching to volume\n");
-	return STATUS_SUCCESS;
+	return status;
 }
 
 NTSTATUS

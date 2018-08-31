@@ -149,10 +149,12 @@
     <ClCompile Include="AccessControlCreate.c" />
     <ClCompile Include="AccessControlSetup.c" />
     <ClCompile Include="DriverEntry.c" />
+    <ClCompile Include="FilterContext.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessControlCreate.h" />
     <ClInclude Include="AccessControlSetup.h" />
+    <ClInclude Include="FilterContexts.h" />
     <ClInclude Include="GlobalData.h" />
     <ClInclude Include="RegistrationData.h" />
     <ClInclude Include="UserCommunication.h" />
