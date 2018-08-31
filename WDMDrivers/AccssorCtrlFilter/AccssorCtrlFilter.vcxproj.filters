@@ -47,5 +47,8 @@
     <ClInclude Include="GlobalData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UserCommunication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

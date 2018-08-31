@@ -155,6 +155,7 @@
     <ClInclude Include="AccessControlSetup.h" />
     <ClInclude Include="GlobalData.h" />
     <ClInclude Include="RegistrationData.h" />
+    <ClInclude Include="UserCommunication.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

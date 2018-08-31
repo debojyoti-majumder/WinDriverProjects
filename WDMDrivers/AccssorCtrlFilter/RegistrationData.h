@@ -9,7 +9,7 @@
 
 CONST FLT_OPERATION_REGISTRATION Callbacks[] = {
 	{ IRP_MJ_CREATE,
-	0,
+	FLTFL_OPERATION_REGISTRATION_SKIP_PAGING_IO,
 	AccessControlCreatePreOperation,
 	AccessControlCreatePostOperation },
 
