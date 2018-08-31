@@ -45,11 +45,21 @@ AccessControlInstanceSetup(
 	status = FltAllocateContext(FltObjects->Filter, FLT_INSTANCE_CONTEXT, 
 				CTX_INSTANCE_CONTEXT_SIZE, NonPagedPool, &instanceContext);
 
+	DbgPrint("Filter: Attaching to volume\n");
+
 	if (NT_SUCCESS(status)) {
-		return PopulateInstanceContext(instanceContext);
+		status = PopulateInstanceContext(instanceContext);
+
+		if (NT_SUCCESS(status)) {
+			DbgPrint("Filter: Setting the filter context");
+
+			status = FltSetInstanceContext(FltObjects->Instance, 
+						FLT_SET_CONTEXT_KEEP_IF_EXISTS,
+						instanceContext, 
+						NULL);
+		}
 	}
 
-	DbgPrint("Filter: Attaching to volume\n");
 	return status;
 }
 
