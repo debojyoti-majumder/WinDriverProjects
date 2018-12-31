@@ -12,7 +12,7 @@ typedef struct _CTX_INSTANCE_CONTEXT {
 	PFLT_VOLUME Volume;
 
 	//  Name of the volume associated with this instance.
-	UNICODE_STRING VolumeName;
+	PUNICODE_STRING VolumeName;
 
 } CTX_INSTANCE_CONTEXT, *PCTX_INSTANCE_CONTEXT;
 

@@ -3,12 +3,26 @@
 #include "FilterContexts.h"
 
 NTSTATUS PopulateInstanceContext(
-	PCTX_INSTANCE_CONTEXT insatnceContext
+	PCTX_INSTANCE_CONTEXT instanceContext
 ) {
-	NTSTATUS status = STATUS_SUCCESS;
-
-	UNREFERENCED_PARAMETER(insatnceContext);
 	PAGED_CODE();
+
+	NTSTATUS status = STATUS_SUCCESS;
+	ULONG dwBuffNeeded = 0;
+	PUNICODE_STRING volumeName = NULL;
+
+	status = FltGetVolumeName(instanceContext->Volume, NULL, &dwBuffNeeded);
+	if (status == STATUS_BUFFER_TOO_SMALL) {
+		volumeName = ExAllocatePool(NonPagedPool, dwBuffNeeded);
+		status = FltGetVolumeName(instanceContext->Volume, volumeName, &dwBuffNeeded);
+
+		if (STATUS_SUCCESS == status) {
+			instanceContext->VolumeName = volumeName;
+		}
+		else {
+			ExFreePool(volumeName);
+		}
+	}
 
 	return status;
 }
@@ -21,15 +35,19 @@ AccessControlInstanceSetup(
 	IN FLT_FILESYSTEM_TYPE			VolumeFilesystemType
 ) {
 	UNREFERENCED_PARAMETER(Flags);
-	UNREFERENCED_PARAMETER(VolumeDeviceType);
-
 	PAGED_CODE();
+
 	NTSTATUS status = STATUS_SUCCESS;
 	BOOLEAN isSnapshopVolume = FALSE;
 	PCTX_INSTANCE_CONTEXT instanceContext = NULL;
 
+	// Do not attach to Network FS
+	if (FILE_DEVICE_NETWORK == VolumeDeviceType) {
+		return STATUS_FLT_DO_NOT_ATTACH;
+	}
+
 	// Do not attach to MUP also
-	if (FLT_FSTYPE_MUP == VolumeFilesystemType ) {
+	if (FLT_FSTYPE_MUP == VolumeFilesystemType || FLT_FSTYPE_RAW == VolumeFilesystemType ) {
 		DbgPrint("Filter: Not attaching to the Volume\n");
 		return STATUS_FLT_DO_NOT_ATTACH;
 	}
@@ -48,11 +66,13 @@ AccessControlInstanceSetup(
 	DbgPrint("Filter: Attaching to volume\n");
 
 	if (NT_SUCCESS(status)) {
+		// Setting up the instance context
+		instanceContext->Volume = FltObjects->Volume;
+		instanceContext->Instance = FltObjects->Instance;
 		status = PopulateInstanceContext(instanceContext);
 
+		// Setting up the filter context
 		if (NT_SUCCESS(status)) {
-			DbgPrint("Filter: Setting the filter context");
-
 			status = FltSetInstanceContext(FltObjects->Instance, 
 						FLT_SET_CONTEXT_KEEP_IF_EXISTS,
 						instanceContext, 

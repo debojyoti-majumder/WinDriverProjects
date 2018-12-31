@@ -27,6 +27,6 @@ DefaultDestDir = 12
 
 
 [Strings]
-ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+ManufacturerName="Debojyoti Majumder" ;TODO: Replace with your manufacturer name
 ClassName=""
 DiskName="AccssorCtrlFilter Source Disk"
