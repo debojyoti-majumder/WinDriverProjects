@@ -42,7 +42,7 @@ AccessControlInstanceSetup(
 	PCTX_INSTANCE_CONTEXT instanceContext = NULL;
 
 	// Do not attach to Network FS
-	if (FILE_DEVICE_NETWORK == VolumeDeviceType) {
+	if (FILE_DEVICE_NETWORK_FILE_SYSTEM == VolumeDeviceType) {
 		return STATUS_FLT_DO_NOT_ATTACH;
 	}
 
