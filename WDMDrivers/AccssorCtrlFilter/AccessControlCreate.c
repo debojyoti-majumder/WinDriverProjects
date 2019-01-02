@@ -7,11 +7,17 @@ AccessControlCreatePreOperation(
 	_Flt_CompletionContext_Outptr_ PVOID *CompletionContext
 ) {
 	NTSTATUS status = FLT_PREOP_SUCCESS_WITH_CALLBACK;
-
-	UNREFERENCED_PARAMETER(Data);
+	
 	UNREFERENCED_PARAMETER(FltObjects);
 	UNREFERENCED_PARAMETER(CompletionContext);
 
+	// We are only processing IRP operations
+	if (FALSE == FLT_IS_IRP_OPERATION(Data)) {
+		status = FLT_PREOP_SUCCESS_NO_CALLBACK;
+		goto PreCreateCleanUP;
+	}
+
+PreCreateCleanUP:
 	return status;
 }
 
