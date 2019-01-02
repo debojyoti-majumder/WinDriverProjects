@@ -37,7 +37,7 @@ CONST FLT_REGISTRATION FilterRegistration = {
 	AccessControlUnload,				//  MiniFilterUnload
 
 	AccessControlInstanceSetup,			//  InstanceSetup
-	NULL,								//  InstanceQueryTeardown
+	InstanceQueryTeardown,				//  InstanceQueryTeardown
 	NULL,								//  InstanceTeardownStart
 	NULL,								//  InstanceTeardownComplete
 

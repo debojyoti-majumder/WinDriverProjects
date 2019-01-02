@@ -48,6 +48,16 @@ NTSTATUS PopulateInstanceContext(
 	return status;
 }
 
+NTSTATUS InstanceQueryTeardown(	PCFLT_RELATED_OBJECTS FltObjects, 
+								FLT_INSTANCE_QUERY_TEARDOWN_FLAGS Flags) {
+	NTSTATUS status = STATUS_SUCCESS;
+
+	UNREFERENCED_PARAMETER(FltObjects);
+	UNREFERENCED_PARAMETER(Flags);
+
+	return status;
+}
+
 NTSTATUS
 AccessControlInstanceSetup(
 	IN PCFLT_RELATED_OBJECTS		FltObjects,

@@ -20,6 +20,12 @@ static NTSTATUS PopulateInstanceContext(
 	PCTX_INSTANCE_CONTEXT insatnceContext
 );
 
+NTSTATUS
+InstanceQueryTeardown(
+	_In_ PCFLT_RELATED_OBJECTS FltObjects,
+	_In_ FLT_INSTANCE_QUERY_TEARDOWN_FLAGS Flags
+);
+
 #ifdef ALLOC_PRAGMA
 	#pragma alloc_text(PAGE, AccessControlInstanceSetup)
 	#pragma alloc_text(PAGE, PopulateInstanceContext)
