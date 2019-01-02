@@ -12,7 +12,10 @@ typedef struct _CTX_INSTANCE_CONTEXT {
 	PFLT_VOLUME Volume;
 
 	//  Name of the volume associated with this instance.
-	PUNICODE_STRING VolumeName;
+	UNICODE_STRING VolumeName;
+
+	// If removable storage or not
+	BOOLEAN isRemovable;
 
 } CTX_INSTANCE_CONTEXT, *PCTX_INSTANCE_CONTEXT;
 

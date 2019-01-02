@@ -9,18 +9,39 @@ NTSTATUS PopulateInstanceContext(
 
 	NTSTATUS status = STATUS_SUCCESS;
 	ULONG dwBuffNeeded = 0;
-	PUNICODE_STRING volumeName = NULL;
+	PFLT_VOLUME_PROPERTIES volumeProperties = NULL;
 
 	status = FltGetVolumeName(instanceContext->Volume, NULL, &dwBuffNeeded);
+	
 	if (status == STATUS_BUFFER_TOO_SMALL) {
-		volumeName = ExAllocatePool(NonPagedPool, dwBuffNeeded);
-		status = FltGetVolumeName(instanceContext->Volume, volumeName, &dwBuffNeeded);
+		PVOID buffer = ExAllocatePool(NonPagedPool, dwBuffNeeded);
+		instanceContext->VolumeName.Buffer = buffer;
+		instanceContext->VolumeName.Length = 0;
+		instanceContext->VolumeName.MaximumLength = (SHORT) dwBuffNeeded;
 
-		if (STATUS_SUCCESS == status) {
-			instanceContext->VolumeName = volumeName;
+		status = FltGetVolumeName(instanceContext->Volume, &instanceContext->VolumeName, &dwBuffNeeded);
+		if (NT_SUCCESS(status) == FALSE) {
+			DbgPrint("Can not get volume name\n");
+			return status;
 		}
-		else {
-			ExFreePool(volumeName);
+	}
+	
+	ULONG lengthReturned = 0;
+	status = FltGetVolumeProperties(instanceContext->Volume, NULL, 0, &dwBuffNeeded);
+
+	if (status == STATUS_BUFFER_TOO_SMALL) {
+		volumeProperties = ExAllocatePool(NonPagedPool, dwBuffNeeded);
+		
+		if (volumeProperties != NULL) {
+			status = FltGetVolumeProperties(instanceContext->Volume, volumeProperties, dwBuffNeeded, &lengthReturned);
+
+			if (NT_SUCCESS(status) && FlagOn(FILE_REMOVABLE_MEDIA, volumeProperties->DeviceCharacteristics)) {
+				instanceContext->isRemovable = TRUE;
+			}
+			else
+				instanceContext->isRemovable = FALSE;
+
+			ExFreePool(volumeProperties);
 		}
 	}
 
