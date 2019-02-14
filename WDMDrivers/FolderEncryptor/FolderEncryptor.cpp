@@ -38,6 +38,21 @@ void doDummyEncryption(TCHAR* fileName) {
 							0, 
 							NULL);
 
+	BOOL bReadReadReturnStatus = TRUE;
+
+	PVOID readBuffer, nextAddress;
+	readBuffer = VirtualAlloc(&nextAddress, 512, MEM_COMMIT, PAGE_READWRITE);
+
+	while (TRUE == bReadReadReturnStatus) {
+		DWORD dwRead, dwWritten;
+		bReadReadReturnStatus = ReadFile(hSourceFile, readBuffer, 512, &dwRead, NULL);
+
+		WriteFile(hDestinationFile, readBuffer, dwRead, &dwWritten, NULL);
+
+		if (dwRead != dwWritten) {
+			throw ErrorObject{};
+		}
+	}
 	if (hDestinationFile == INVALID_HANDLE_VALUE) {
 		throw ErrorObject{};
 	}
