@@ -3,9 +3,12 @@
 
 #include "pch.h"
 #include <iostream>
+#include "DeviceClassrepository.hpp"
 
 int __cdecl _tmain(int argc, _In_reads_(argc) LPTSTR argv[])
 {
-    std::cout << "Filter Tool!\n"; 
+    DeviceClassRepository diskRepo(GUID_DEVINTERFACE_DISK);
+    std::cout << "Filter Tool!\n";
+
     return 0;
 }

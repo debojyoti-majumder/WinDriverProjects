@@ -21,6 +21,9 @@
     <ClInclude Include="CommandLineParser.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="DeviceClassrepository.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -30,6 +33,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CommandLineParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceClassrepository.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
