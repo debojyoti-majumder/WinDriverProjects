@@ -1,5 +1,5 @@
-// FolderEncryptor.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// FolderEncryptor.cpp : This utility should be able to encrypt a folders content with a key
+// This definityly needs refactoring
 
 #include "pch.h"
 #include "ErrorObject.h"
