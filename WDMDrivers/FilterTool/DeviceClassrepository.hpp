@@ -5,10 +5,13 @@
 
 class DeviceClassRepository {
     private:
-        GUID _deviceGuid;
-        void buildDeviceDescription();
+        GUID        _deviceGuid;
+        HDEVINFO    _deivceInfoHandle;
+
+        void buildDeviceDescription(SP_DEVINFO_DATA);
+        void getDeviceRegistryProperty(SP_DEVINFO_DATA, DWORD, DWORD expectedType = REG_SZ);
 
     public:
-        explicit DeviceClassRepository(GUID deviceGuid);
-        void GetDevices();
+        explicit DeviceClassRepository(const GUID& deviceGuid);
+        void getDevices();
 };
