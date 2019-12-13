@@ -7,7 +7,7 @@
 
 int __cdecl _tmain(int argc, _In_reads_(argc) LPTSTR argv[])
 {
-    DeviceClassRepository diskRepo(GUID_DEVINTERFACE_DISK);
+    DeviceClassRepository diskDevices(GUID_DEVINTERFACE_DISK);
     std::cout << "Filter Tool!\n";
 
     return 0;

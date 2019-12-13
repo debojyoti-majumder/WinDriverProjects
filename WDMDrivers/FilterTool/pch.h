@@ -5,5 +5,6 @@
 
 #include <Windows.h>
 #include <SetupAPI.h>
+#include "ErrorObject.h"
 
 #endif //PCH_H

@@ -1,18 +1,14 @@
 #include "pch.h"
 #include "CommandLineParser.hpp"
 
-CommandLineParser::CommandLineParser(int argc, LPTSTR argv[])
-{
+CommandLineParser::CommandLineParser(int argc, LPTSTR argv[]) {
 }
 
-void CommandLineParser::AddOption()
-{
+void CommandLineParser::AddOption() {
 }
 
-void CommandLineParser::Parse()
-{
+void CommandLineParser::Parse() {
 }
 
-CommandLineParser::~CommandLineParser()
-{
+CommandLineParser::~CommandLineParser() {
 }

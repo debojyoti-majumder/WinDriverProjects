@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="CommandLineParser.hpp" />
     <ClInclude Include="DeviceClassrepository.hpp" />
+    <ClInclude Include="ErrorObject.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
