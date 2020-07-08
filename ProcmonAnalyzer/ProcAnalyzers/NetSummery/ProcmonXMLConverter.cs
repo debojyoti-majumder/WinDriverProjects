@@ -6,7 +6,8 @@ namespace NetSummery
     {
         public ProcmonXMLConverter(string pathName)
         {
-
+            var locator = new ProcmonLocator();
+            locator.GetExePath();
         }
 
         public string GetXMLPath()
